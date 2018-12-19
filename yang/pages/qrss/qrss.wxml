@@ -1,0 +1,8 @@
+<view class="container">
+  
+    <video class="sky" id="myvideo" src="../../../image/abc.mkv"></video>
+    <button class='btn' bindtap="fanhui">返回</button>
+      </view>
+      
+
+  

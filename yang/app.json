@@ -1,0 +1,26 @@
+{
+  "pages": [
+    "pages/qrss/qrss",
+    "pages/about/about",
+    "pages/guanli/tongjitu/tongjitu",
+    "pages/guanli/gequ/gequ"
+    
+    
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/guanli/tongjitu/tongjitu",
+        "text": "控制界面",
+        "iconPath": "image/yonghu1.png",
+        "selectedIconPath": "image/yonghu.png"
+      },
+      {
+        "pagePath": "pages/guanli/gequ/gequ",
+        "text": "歌曲界面",
+        "iconPath": "image/yy1.png",
+        "selectedIconPath": "image/yy.png"
+      }
+    ]
+  }
+}

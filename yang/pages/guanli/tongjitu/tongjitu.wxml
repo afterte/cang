@@ -1,0 +1,23 @@
+<view wx:if="{{jingbao}}">
+  <view class="tiaojian"><text class='text'>警报</text></view>
+</view>
+<swiper class="huan" indicator-dots='{{true}}'>
+  <swiper-item>
+  <view class="shijishuju">
+    <text>室内情况</text>
+    <text>温度：{{tianqi.wendu}}摄氏度</text>
+    <text>湿度：{{tianqi.shidu}}%PH</text>
+    <text>光照：{{tianqi.guangzhao}}雷克斯</text>
+</view>    
+  </swiper-item>
+</swiper>
+<view class='shitu1'>
+      <button class="btn1" bindtap="tapName1" hover-class='btn'>打开</button>
+    </view>
+    <view class='shitu2'>  
+       <button class="btn2" bindtap="tapName2" hover-class='btn'>关闭</button></view>
+       <view class="shitu2">
+        <button class="btn1" bindtap="fanhui" hover-class="btn">返回上级界面</button>
+</view>
+  
+

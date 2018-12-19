@@ -1,0 +1,48 @@
+.swiper{
+  margin-top: 600rpx;
+  height: 480rpx;
+}
+.image{
+  height: 200rpx;
+  width: 100%;
+}
+.text{
+ font-weight: bold;
+  font-size: 30rpx;
+}
+.con{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.btn{
+  background-color: aquamarine;
+}
+#btn1{
+  width: 80%;
+}
+.yemian{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.container{
+  display:flex;
+  margin-bottom:40rpx;
+}
+.fontSet{
+  
+  color:purple;
+  margin-left:100px;
+  margin-right:100px;
+  margin-top:100rpx;
+  margin-bottom:100rpx;
+  
+}
+.spacearound{
+ 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

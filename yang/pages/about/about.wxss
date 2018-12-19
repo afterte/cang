@@ -1,0 +1,42 @@
+.testinline {
+  font-size: 30px;
+  font-weight: bold;
+}
+.image1{
+  width: 375rpx;
+  height: 375rpx;
+  border-radius: 90%;
+  margin-top: 10rpx;
+}
+.yemian{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+#btn3{
+  height: 100rpx;
+  top: 60%;
+  width: 60%;
+  color: blanchedalmond;
+  background-color: rgb(233, 178, 178);
+  }
+ #input{
+  background-color: #e5e5e5;
+  margin-bottom: 150rpx;
+  margin-top: 100rpx;
+  height:90rpx;
+  border:2px #2345;
+border-radius:25px;
+
+  }
+.test{
+  margin-top: 140rpx;
+  font-weight: bold;
+  font-size: 45rpx;
+}
+.btn{
+  color: #423c58;
+  background-color: #7d8f5f;
+  opacity: this.date.opacity
+}

@@ -1,0 +1,51 @@
+.tiaojian{
+  display: flex;
+  flex-direction: column;
+  background-color: yellow;
+     margin-top: 50rpx;
+}
+.text{
+  color: red;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+.btn1{
+ height: 100rpx;
+  top: 60%;
+  width: 60%;
+  color:  white;
+  background-color: #477a77;
+}
+.btn2{
+ height: 100rpx;
+  top: 60%;
+  width: 60%;
+  color: white;
+  background-color: #477a77;
+}
+.shitu1{
+  margin-bottom: 50rpx;
+  margin-top: 10rpx;
+}
+.shitu2{
+  margin-bottom: 100rpx;
+  margin-top: 50rpx;
+   
+}
+.huan{
+   height: 600rpx;
+ 
+}
+.shijishuju{
+ display: flex;
+  width: 100%;
+  flex-direction: column;
+   
+  background-image: url('https://i0.wp.com/blog.tripbaa.com/wp-content/uploads/2018/02/6-2.jpg?fit=1024%2C682&ssl=1');
+  height: 80%;
+  text-align: center;
+  align-items: center;
+  font-size: 70rpx;
+  border-radius: 10rpx;
+}
