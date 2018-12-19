@@ -1,0 +1,226 @@
+#include "audio.h"
+#include <SoftwareSerial.h>
+#include <Adafruit_NeoPixel.h>
+#include <Servo.h>
+#include <ESP8266.h>
+#define val_max 4
+#define val_min 1
+#define INTERVAL_Time 3
+#define humanHotSensor 4
+#define PIN 6
+
+#define SSID "wpc"
+#define PASSWORD "123456789"
+#define HOST_NAME "api.heclouds.com"
+#define DEVICEID "503070381"
+#define PROJECTID "183589"
+#define HOST_PORT (80)
+String apiKey = "flOqAczUc12KAW4lh1mNUrfWC50=";
+#define EspSerial mySerial
+#define UARTSPEED  9600
+ESP8266 wifi(&EspSerial);
+#include <Wire.h>
+#include <I2Cdev.h>
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(2, PIN, NEO_GRB + NEO_KHZ800);
+Servo myservo;
+bool isUP = true;
+int val = 0, music_vol = 30;
+bool humanHotState = false;
+boolean on_off;
+boolean statusChange;
+bool playing = false;
+int pos = 0, a = 3;
+float b = 0;
+char buf[10];
+String jsonToSend;
+String postString, getString;
+unsigned long Time_millis = millis();
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(humanHotSensor, INPUT);
+  audio_init(DEVICE_Flash, 4, music_vol);
+  strip.begin();
+  strip.show();
+  Wire.begin();
+  Serial.print(F("setup begin\r\n"));
+  while (!Serial);
+  delay(500);
+  WifiInit(EspSerial, UARTSPEED);
+  if (wifi.setOprToStationSoftAP()){Serial.print(F("to station + softap ok\r\n"));}
+  if (wifi.joinAP(SSID, PASSWORD)){Serial.print(F("Join AP success\r\n"));}
+  if (wifi.disableMUX()){Serial.print(F("single ok\r\n"));}
+}
+void getapidata(){
+  uint8_t buffer[400] = {0};
+  if (wifi.createTCP(HOST_NAME, HOST_PORT))
+  {Serial.print(F("create tcp ok\r\n"));}
+ 
+  getString = "GET http://api.heclouds.com/devices/";
+  getString += DEVICEID;
+  getString += "/datastreams/jingbao ";
+  getString += "HTTP/1.1";
+  getString += "\r\n";
+  getString += "api-key:";
+  getString += apiKey;
+  getString += "\r\n";
+  getString += "Host:api.heclouds.com\r\n\r\n";
+
+  const char *postArray = getString.c_str();
+  wifi.send((const uint8_t*)postArray, strlen(postArray));
+  postArray = NULL;
+  uint32_t len = wifi.recv(buffer, sizeof(buffer), 10000);
+  if (len <= 0) {
+    Serial.print("错啦！");
+  }
+  Serial.print("status:");
+  Serial.println(buffer[299]);
+  
+  switch (buffer[299])
+  {
+    case 49:
+      a = 1;
+      break;
+    case 50:
+      a = 2;
+      break;
+    case 51:
+      a = 3;
+      break;
+  }
+}
+
+void updateServo() {
+  if (Time_millis > millis()) Time_millis = millis();
+  if (millis() - Time_millis > INTERVAL_Time) {
+    if (pos == 30) {
+      isUP = true;
+    } else if (pos == 130) {
+      isUP = false;
+    }
+    if (isUP) {
+      pos++;
+    }
+    else {
+      pos--;
+    }
+    myservo.write(pos);
+    Time_millis = millis();
+  }
+}
+
+void colorWipe(uint32_t c) {
+  for (uint16_t i = 0; i < strip.numPixels(); i++) {
+    strip.setPixelColor(i, c);
+    strip.show();
+  }
+}
+
+void getSensorData() {
+  if (humanHotState == HIGH) {
+    b = 1;
+  }
+  else if (humanHotState == LOW) {
+    b = 2;
+  }
+  delay(1000);
+}
+
+void updateSensorData() {
+  if (wifi.createTCP(HOST_NAME, HOST_PORT)) {
+    Serial.print("create tcp ok\r\n");
+    jsonToSend = "{\"jingbao\":";
+    dtostrf(b, 1, 2, buf);
+    jsonToSend += "\"" + String(buf) + "\"";
+    jsonToSend += "}";
+
+    postString = "POST /devices/";
+    postString += DEVICEID;
+    postString += "/datapoints?type=3 HTTP/1.1";
+    postString += "\r\n";
+    postString += "api-key:";
+    postString += apiKey;
+    postString += "\r\n";
+    postString += "Host:api.heclouds.com\r\n";
+    postString += "Connection:close\r\n";
+    postString += "Content-Length:";
+    postString += jsonToSend.length();
+    postString += "\r\n";
+    postString += "\r\n";
+    postString += jsonToSend;
+    postString += "\r\n";
+    postString += "\r\n";
+    postString += "\r\n";
+
+    const char *postArray = postString.c_str();
+    wifi.send((const uint8_t*)postArray, strlen(postArray));
+    postArray = NULL;
+  }
+}
+
+void loop() {
+  getapidata();
+  humanHotState = digitalRead(humanHotSensor);
+  if (a == 2 || a == 3)
+  {
+    if (humanHotState)
+    {
+      if (!playing) {
+        Serial.println("play sound.....");
+        audio_play();
+        switch (a) {
+          case 2:
+            audio_choose(1);
+            break;
+          case 3:
+            audio_choose(1);
+            break;
+        }
+        playing = true;
+      }
+      for (int i =0; i < 256; ++i)
+      {
+        colorWipe(strip.Color(i, 0,0));
+        delay(2);
+      }
+      for (int i = 255; i>= 0; --i)
+      {
+        colorWipe(strip.Color(i, 0, 0));
+        delay(2);
+      }
+      for (int i = 0; i < 256; ++i)
+      {
+        colorWipe(strip.Color(0, i, 0));
+        delay(2);
+      }
+      for (int i = 255; i >= 0; --i)
+      {
+        colorWipe(strip.Color(0, i, 0));
+        delay(2);
+      }
+      for (int i = 0; i < 256; ++i)
+      {
+        colorWipe(strip.Color(0, 0, i));
+        delay(2);
+      }
+      for (int i = 255; i >= 0; --i)
+      {
+        colorWipe(strip.Color(0, 0, i));
+        delay(2);
+      }
+      updateServo();
+    }
+    else
+    {
+      playing = false;
+      audio_pause();
+      colorWipe(strip.Color(0, 0, 0));
+      myservo.write(90);
+    }
+  }
+  else if (a == 1)
+  {
+    getSensorData();
+    updateSensorData();
+  }
+}
