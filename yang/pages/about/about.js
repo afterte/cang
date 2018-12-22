@@ -49,6 +49,9 @@ Page({
     })
     console.log(this.data.pass)
   },
+  onLoad: function (options) {
+    this.surprise()
+  }
 
 })
 

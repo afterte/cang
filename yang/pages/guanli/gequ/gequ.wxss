@@ -1,10 +1,10 @@
 .swiper{
-  margin-top: 600rpx;
-  height: 480rpx;
+  margin-top: 260rpx;
+  height: 300rpx;
 }
 .image{
   height: 200rpx;
-  width: 100%;
+  width: 50%;
 }
 .text{
  font-weight: bold;
@@ -45,4 +45,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+.image2{
+  width: 375rpx;
+  height: 375rpx;
+  border-radius: 90%;
+  margin-top: 10rpx;
 }

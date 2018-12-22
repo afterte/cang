@@ -1,11 +1,9 @@
 {
   "pages": [
-    "pages/qrss/qrss",
-    "pages/about/about",
-    "pages/guanli/tongjitu/tongjitu",
+      "pages/about/about",
+      "pages/guanli/tongjitu/tongjitu",
     "pages/guanli/gequ/gequ"
-    
-    
+  
   ],
   "tabBar": {
     "list": [

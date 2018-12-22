@@ -5,12 +5,20 @@ Page({
     animation:'',
     gequxuanze:[
       {
-        name: "歌曲1",
-        imagePath:"../../../image/1.png"
+        name: "儿子一号",
+        imagePath:"../../../image/1.jpg"
       },
       {
-        name:"歌曲2",
-        imagePath:"../../../image/2.png"
+        name:"儿子二号",
+        imagePath:"../../../image/2.jpg"
+      },
+        {
+        name: "儿子三号",
+        imagePath: "../../../image/3.jpg"
+      },
+        {
+        name: "儿子四号",
+        imagePath: "../../../image/4.jpg"
       }
     ]
 
@@ -27,6 +35,12 @@ Page({
       success: function (res) {
         console.log(res)
       }
+    })
+  },
+  change: function(e){
+    var that=this
+    that.setData({
+      gequ: e.detail.current+2
     })
   },
 
@@ -47,14 +61,6 @@ Page({
         })
       }.bind(this), 1000)
   },
-
-
-    qrs:function(){
-      wx.navigateTo({
-        url: '../../qrss/qrss',
-      })
-
-    },
   
   tapName: function () {
     if(this.data.gequxuanze)
@@ -71,7 +77,7 @@ Page({
 
           {
 
-            "id": "gequ", //数据流名称或数据流模板名称
+            "id": "kaiguan", //数据流名称或数据流模板名称
 
             "datapoints": [
 
@@ -83,6 +89,7 @@ Page({
           }]
       }
     })
+  this.abv()
   },
   gequplay:function(){
     this.gequplay = wx.createVideoContext(myvideo, this)

@@ -1,8 +1,7 @@
 
 <view class="yemian">
-<image src="/image/mazi.jpg" animation="{{animationData}}" ></image>
+<image src="/image/mazi.jpg" animation="{{animationData}}" class="image1"></image>
 <text class="test">请输入密码以访问控制页面</text>
-<button id="btn3" bindtap="surprise" hover-class='btn'>点我你就知道我帅了</button>
 <input id="input" placeholder="请输入密码" 
 placeholder-style="font-size:15px; color:#bfbfbf;" 
 style="font-weight:bolder; font-size:15px; color:#000000; padding-left: 30rpx"

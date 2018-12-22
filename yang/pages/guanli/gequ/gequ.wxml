@@ -1,19 +1,15 @@
 <view>
-<view animation="{{animation}}">
-<image src="/image/6-2.jpg"> </image>
+<view animation="{{animation}}" class="yemian">
+<image class="image2" src="/image/6-2.jpg"> </image>
 </view>
-<view>
-<text class="fontSet">可以播放歌曲哟</text>
-</view>
-<button class="fontSet" bindtap="abv">放映图片</button>
-  <swiper class='swiper' indicator-dots="{{true}}">
+<view class="yemian">请选择您的儿子</view>
+  <swiper class='swiper' indicator-dots="{{true}}" bindchange='change'>
     <swiper-item class='songs' wx:for="{{gequxuanze}}">
       <view class='con'>
        <image class="image" src="{{item.imagePath}}"></image>
        <text class="text">{{item.name}}</text>
-        <button id="btn1" bindtap="qrs" hover-class='btn'>确认</button>
       </view>
     </swiper-item>
   </swiper>
-
+<button id="btn1" bindtap="tapName" hover-class='btn'>确认</button>
 </view>
